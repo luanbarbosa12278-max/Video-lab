@@ -1,22 +1,22 @@
-# VideoLab
+# VideoLab v2
 
-Editor de vídeos curtos que funciona no navegador, em celular e computador.
+Site de diagnóstico e exportação de vídeos curtos para navegador.
 
-## Funcionalidades
-- Upload de MP4, MOV e WebM de até 10 segundos (desde que o navegador consiga ler a duração)
-- Pré-visualização
-- Ajustes de brilho, contraste, saturação e nitidez
-- Presets de cor
-- Exportação MP4 com FFmpeg.wasm, sem upload para servidor
+## Recursos
+- Upload e prévia de MP4, MOV e WebM (até aproximadamente 10 segundos, com tolerância técnica)
+- Informações de duração, dimensões, tamanho e tipo de arquivo
+- Inspeção limitada de termos textuais associados a procedência; não valida C2PA nem detecta SynthID
+- Ajustes de brilho, contraste e saturação
+- Exportação por MediaRecorder + Canvas: resolução original ou redimensionamento para altura 1920/1280 mantendo proporção
+- Áudio incluído quando suportado pelo navegador
+- Download MP4 quando MediaRecorder oferece MP4; caso contrário WebM
 
-## Como publicar
-1. Abra Settings > Pages no GitHub.
-2. Em Build and deployment, escolha Deploy from a branch.
-3. Selecione `main` e `/ (root)` e salve.
-4. Aguarde a URL aparecer no painel Pages.
+## Publicação
+Em Settings > Pages, escolha Deploy from a branch, main, /(root).
 
-## Notas
-- O motor FFmpeg.wasm é baixado de CDN na primeira execução. Precisa de internet para isso.
-- A exportação pode exigir bastante memória em celulares. Alguns arquivos MOV podem não ser compatíveis.
-- O site não remove nem falsifica informações de procedência de IA e não promete alterar rótulos aplicados por plataformas.
-- A exportação precisa ser validada no navegador de destino antes de uso em produção.
+## Limitações
+- A conversão de 720p para 1080p não restaura detalhes inexistentes.
+- A inspeção textual não é uma análise completa de metadados nem prova ausência de marcas invisíveis.
+- A exportação em tempo real pode ter dificuldades em dispositivos lentos, ao mudar de aba ou em navegadores sem suporte ao MediaRecorder.
+- O site não remove marcas de procedência nem garante mudanças em etiquetas aplicadas por plataformas.
+- Testar no navegador alvo antes de uso em produção.
