@@ -134,8 +134,8 @@ const code=await engine.exec(args,300000);
 if(code!==0)throw Error('Falha na conversão de vídeo/áudio. Verifique se o original tem áudio compatível.');
 const data=await engine.readFile('output.mp4');if(data.length<1000)throw Error('O arquivo gerado está vazio.');
 // Check encoder output logs for an audio stream without decoding the finished video a second time.
-const report=logs.join('\\n');
-if(!/Audio:\\s*(aac|mp3|opus|vorbis|pcm|flac|alac)/i.test(report))throw Error('Não foi possível confirmar a faixa de áudio na exportação.');
+const report=logs.join('\n');
+if(!/Audio:\s*(aac|mp3|opus|vorbis|pcm|flac|alac)/i.test(report))throw Error('Não foi possível confirmar a faixa de áudio na exportação.');
 readyDownload(new Blob([data],{type:'video/mp4'}),'videolab-exportado.mp4');privacyCompare();$('progress').value=100;
 say('Exportação concluída. Áudio indicado nos registros de codificação; confira a reprodução no celular.');
 }finally{engine.off('log',capture)}
