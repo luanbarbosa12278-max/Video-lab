@@ -100,19 +100,19 @@ const bytes=new Uint8Array(await blob.slice(0,Math.min(blob.size,16*1024*1024)).
 const text=new TextDecoder('latin1').decode(bytes);
 const found=[];
 for(const [name,re] of [['C2PA (indício textual)',/c2pa|jumbf/i],['Google (indício textual)',/google llc|google media processing/i],['SynthID (indício textual)',/synthid/i],['Software (indício textual)',/software|encoder|lavf/i]])if(re.test(text))found.push(name);
-return label+'\\nTamanho: '+(blob.size/1048576).toFixed(2)+' MB\\nTipo MIME: '+(blob.type||'não informado')+'\\nNome do arquivo: '+(blob.name||'não disponível')+'\\nMarcadores textuais nos primeiros 16 MB: '+(found.join(', ')||'nenhum encontrado (não significa ausência)')+'\\n';
+return label+'\nTamanho: '+(blob.size/1048576).toFixed(2)+' MB\nTipo MIME: '+(blob.type||'não informado')+'\nNome do arquivo: '+(blob.name||'não disponível')+'\nMarcadores textuais nos primeiros 16 MB: '+(found.join(', ')||'nenhum encontrado (não significa ausência)')+'\n';
 }
 async function privacyCompare(){
 if(!file)return;
 const btn=$('inspectPrivacy');btn.disabled=true;$('privacyReport').textContent='Analisando arquivos localmente…';
 try{
 let report=await basicMetadata(file,'ORIGINAL');
-report+='\\nResolução: '+meta.width+' × '+meta.height+'\\nDuração: '+meta.duration.toFixed(3)+' s\\n';
+report+='\nResolução: '+meta.width+' × '+meta.height+'\nDuração: '+meta.duration.toFixed(3)+' s\n';
 if(exportBlob){
-report+='\\n'+await basicMetadata(exportBlob,exportBlob===file?'EXPORTAÇÃO (cópia idêntica)':'EXPORTAÇÃO');
-report+='\\n'+(exportBlob===file?'Arquivo exportado sem conversão: dados e procedência preservados.':'Arquivo exportado com processamento: metadados podem ter mudado. Verifique C2PA separadamente no arquivo final; este relatório não atesta sua validade.');
-}else report+='\\nNenhuma exportação disponível para comparar.';
-report+='\\n\\nAviso: esta análise não é um inventário completo de metadados e não detecta marcas invisíveis.';
+report+='\n'+await basicMetadata(exportBlob,exportBlob===file?'EXPORTAÇÃO (cópia idêntica)':'EXPORTAÇÃO');
+report+='\n'+(exportBlob===file?'Arquivo exportado sem conversão: dados e procedência preservados.':'Arquivo exportado com processamento: metadados podem ter mudado. Verifique C2PA separadamente no arquivo final; este relatório não atesta sua validade.');
+}else report+='\nNenhuma exportação disponível para comparar.';
+report+='\n\nAviso: esta análise não é um inventário completo de metadados e não detecta marcas invisíveis.';
 $('privacyReport').textContent=report;
 }catch(e){$('privacyReport').textContent='Falha ao analisar: '+(e.message||String(e))}
 finally{btn.disabled=false}
